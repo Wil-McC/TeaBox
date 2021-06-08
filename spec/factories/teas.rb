@@ -3,5 +3,6 @@ FactoryBot.define do
     title { Faker::Tea.variety }
     temp_c { 100 }
     brew_for { ([1, 2, 3, 4].sample) * 0.5 }
+    tier { [1, 2, 3].sample }
   end
 end

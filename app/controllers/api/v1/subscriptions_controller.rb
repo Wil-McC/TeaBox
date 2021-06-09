@@ -4,7 +4,7 @@ class Api::V1::SubscriptionsController < ApplicationController
     if sub.save
       render json: SubscriptionSerializer.new(sub), status: 201
     else
-      error_parse(new_user.errors)
+      error_parse(sub.errors)
     end
   end
 

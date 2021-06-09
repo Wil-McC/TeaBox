@@ -8,6 +8,18 @@ class Api::V1::SubscriptionsController < ApplicationController
     end
   end
 
+  def update
+    sub = Subscription.find(params[:id])
+    sub.status = 'inactive'
+    render json: SubscriptionSerializer.new(sub), status: 200
+  end
+
+  def index
+    customer = Customer.find(params[:customer_id])
+    subs = customer.subscriptions
+    render json: SubscriptionSerializer.new(subs), status: 200
+  end
+
   def get_pricepoint(tea_id, frequency)
     tea = Tea.find(params[:tea_id])
     return (tea.tier * frequency) * 10

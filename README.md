@@ -1,24 +1,186 @@
-# README
+# TeaBox
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## About this Project
+TeaBox is a backend Rails API which exposes endpoints for a hypothetical frontend app, allowing creation, cancellation, and viewing of customer tea subscriptions.
 
-Things you may want to cover:
+## Table of Contents
 
-* Ruby version
+- [Getting Started](#getting-started)
+- [Running the tests](#running-the-tests)
+- [Built With](#built-with)
+- [Authors](#authors)
 
-* System dependencies
 
-* Configuration
+## Getting Started
 
-* Database creation
+To get the web application running, please fork and clone down the repo.
 
-* Database initialization
+`git clone <your@github.account:SweaterWhether.git>`
 
-* How to run the test suite
+### Prerequisites
 
-* Services (job queues, cache servers, search engines, etc.)
+To run this application you will need Ruby 2.5.3 and Rails 5.2.5
 
-* Deployment instructions
+### Installing
+- `rails db:{create,migrate}
+- Install the gem packages  
+  - `bundle install`
+- Initialize RSpec
+  - `rails generate rspec:install`
 
-* ...
+## Running the tests
+RSpec testing suite is utilized for testing this application.
+- Run the RSpec suite to ensure everything is passing as expected  
+`bundle exec rspec`
+
+## Endpoints
+
+##### Create Subscription
+- **Required** query params:
+  - `user_id`
+  - `tea_id`
+  - `frequency`
+
+`POST /api/v1/subscriptions?user_id={id}&tea_id={id}&frequency={shipments per period}"`
+
+```json
+{
+  "data": {
+     "id": "42",
+     "type": "subscription",
+     "attributes": {
+       "status": "active", 
+       "frequency": 6, 
+       "pricepoint": 120
+     },
+     "relationships": {
+       "customer": {
+         "data": {
+           "id": "49",
+           "type": "customer"
+         }
+       },
+       "tea": {
+         "data": {
+           "id": "58", 
+           "type": "tea"
+         }
+       }
+     }
+   }
+ }
+```
+
+##### Cancel Subscription
+- **Required** query params:
+  - `subscription_id`
+
+`PATCH /api/v1/subscriptions/{subscription_id}`
+
+```json
+{
+  "data": {
+    "id": "43",
+    "type": "subscription",
+    "attributes": {
+      "status": "inactive",
+      "frequency": 4,
+      "pricepoint": 30
+    },
+    "relationships": {
+      "customer": {
+        "data": {
+          "id": "50",
+          "type": "customer"
+        }
+      },
+      "tea": {
+        "data": {
+          "id": "59",
+          "type": "tea"
+        }
+      }
+    }
+  }
+}
+```
+
+##### Fetch All Subscriptions - Active and Inactive
+- **Required** query params:
+  - `customer_id`
+
+
+`GET /api/v1/subscriptions?customer_id={customer_id}`
+
+```json
+{
+  "data": [
+    { 
+      "id": "47",
+       "type": "subscription",
+       "attributes": {
+        "status": "active",
+        "frequency": 3, 
+        "pricepoint" :50
+      },
+      "relationships":{ 
+        "customer": {
+          "data": {
+            "id": "53", 
+            "type": "customer"
+          }
+        },
+        "tea": {
+          "data":{
+            "id": "63",
+            "type": "tea"
+          }
+        }
+      }
+    },
+    {
+      "id": "48",
+      "type": "subscription",
+      "attributes": {
+        "status": "inactive",
+        "frequency": 6, "pricepoint": 20
+      },
+      "relationships": {
+        "customer": {
+          "data": {
+            "id": "53",
+            "type": "customer"
+          }
+        }, 
+        "tea ": {
+          "data": {
+            "id": "64",
+            "type": "tea"
+          }
+        }
+      }
+    }
+  ]
+}
+```
+
+
+## Built With
+
+- [Ruby](https://www.ruby-lang.org/en/)
+- [RSpec](https://github.com/rspec/rspec)
+- [Rbenv](https://github.com/rbenv/rbenv)
+
+
+## Versioning
+- Rails 5.2.5
+- Ruby 2.5.3
+- RSpec 3.10.0
+- Rbev 1.1.2
+
+## Author
+
+- **Wil McCauley**
+|    [GitHub](https://github.com/wil-mcc) |
+    [LinkedIn](https://www.linkedin.com/in/wil-mccauley/)
+    

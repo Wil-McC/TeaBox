@@ -5,7 +5,7 @@ RSpec.describe Subscription, type: :model do
     # it { should validate_presence_of  }
   # end
   describe 'relationships' do
-    it { should belong_to :tea }
-    it { should belong_to :customer }
+    it { should have_many :tea_subscriptions }
+    it { should have_many(:teas).through(:tea_subscriptions) }
   end
 end

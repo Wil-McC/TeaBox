@@ -8,7 +8,6 @@ class Api::V1::SubscriptionsController < ApplicationController
     end
   end
 
-
   def update
     sub = Subscription.find(params[:id])
     sub.status = 'inactive'
@@ -20,11 +19,11 @@ class Api::V1::SubscriptionsController < ApplicationController
     subs = customer.subscriptions
     render json: SubscriptionSerializer.new(subs), status: 200
   end
-  # model
-  def get_pricepoint(tea_id, frequency)
-    tea = Tea.find(params[:tea_id])
-    return (tea.tier * frequency) * 10
-  end
+
+  # def get_pricepoint(tea_id, frequency)
+    # tea = Tea.find(params[:tea_id])
+    # return (tea.tier * frequency) * 10
+  # end
 
   def error_parse(error)
     m = error.messages
@@ -40,7 +39,7 @@ class Api::V1::SubscriptionsController < ApplicationController
     data[:tea_id]      = params[:tea_id]
     data[:status]      = 'active'
     data[:frequency]   = params[:frequency].to_i
-    data[:pricepoint]  = get_pricepoint(data[:tea_id], data[:frequency])
+    data[:pricepoint]  = [120, 140, 100].sample
     return data
   end
 end

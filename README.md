@@ -10,19 +10,12 @@ TeaBox is a backend Rails API which exposes endpoints for a hypothetical fronten
 - [Built With](#built-with)
 - [Authors](#authors)
 
-
-## Getting Started
-
-To get the web application running, please fork and clone down the repo.
-
-`git clone <your@github.account:SweaterWhether.git>`
-
 ### Prerequisites
 
 To run this application you will need Ruby 2.5.3 and Rails 5.2.5
 
 ### Installing
-- `rails db:{create,migrate}
+- `rails db:{create,migrate}`
 - Install the gem packages  
   - `bundle install`
 - Initialize RSpec
